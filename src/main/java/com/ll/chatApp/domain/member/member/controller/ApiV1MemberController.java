@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.ll.chatApp.global.jwt.JwtProvider;
 import com.ll.chatApp.global.rsData.RsData;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
@@ -37,7 +39,17 @@ public class ApiV1MemberController {
         System.out.println("logout");
     }
     @GetMapping("/me")
-    public void me(){
-        System.out.println("me");
+    public RsData<MemberDto> me(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String accessToken = "";
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("accessToken")) {
+                accessToken = cookie.getValue();
+            }
+        }
+        Map<String, Object> claims = jwtProvider.getClaims(accessToken);
+        String username = (String) claims.get("username");
+        Member member = this.memberService.getMember(username);
+        return new RsData("200", "회원정보 조회 성공", new MemberDto(member));
     }
 }
