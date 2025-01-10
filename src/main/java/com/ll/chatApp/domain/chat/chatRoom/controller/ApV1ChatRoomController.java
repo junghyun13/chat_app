@@ -32,4 +32,5 @@ public class ApV1ChatRoomController {
         ChatRoom chatRoom = chatRoomService.create(requestCreateRoom.getName());
         return chatRoom;
     }
+
 }

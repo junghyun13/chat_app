@@ -20,14 +20,14 @@ import java.util.Optional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
     @Transactional
-    public RsData<Article> write(Long memberId, String title, String content) {
+    public Article write(String title, String content) {
         Article article = Article.builder()
-                .author(Member.builder().id(memberId).build())
+                .author(Member.builder().id(1L).build())
                 .title(title)
                 .content(content)
                 .build();
-        articleRepository.save(article);
-        return RsData.of("200", "글 작성 성공", article);
+        return articleRepository.save(article);
+
     }
 
     public Optional<Article> findById(Long id) {
@@ -35,9 +35,10 @@ public class ArticleService {
     }
 
     @Transactional
-    public void modify(Article article, String title, String content) {
+    public Article modify(Article article, String title, String content){
         article.setTitle(title);
         article.setContent(content);
+        return article;
         //articleRepository.save(article); Transcational 처리하면 save하지 않아도 알아서 Update쿼리가 날라감 (Dirty Checking)
     }
 
@@ -53,5 +54,9 @@ public class ArticleService {
 
 
         return articleRepository.search(kwTypes, kw, pageable);
+    }
+
+    public void delete(Long id){
+        this.articleRepository.deleteById(id);
     }
 }

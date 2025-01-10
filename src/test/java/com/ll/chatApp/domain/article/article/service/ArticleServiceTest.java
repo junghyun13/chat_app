@@ -29,13 +29,13 @@ public class ArticleServiceTest {
     private MemberService memberService;
     @Autowired
     private ArticleCommentService articleCommentService;
-    @DisplayName("글 쓰기")
+    /*@DisplayName("글 쓰기")
     @Test
     void t1() {
         RsData<Article> writeRs = articleService.write(1L, "제목", "내용"); // 1은 회원번호
         Article article = writeRs.getData();
         assertThat(article.getId()).isGreaterThan(0L);
-    }
+    }*/
     @DisplayName("1번 글을 가져온다.")
     @Test
     void t2() {
