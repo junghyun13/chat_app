@@ -56,6 +56,7 @@ public class ArticleService {
         return articleRepository.search(kwTypes, kw, pageable);
     }
 
+    @Transactional
     public void delete(Long id){
         this.articleRepository.deleteById(id);
     }

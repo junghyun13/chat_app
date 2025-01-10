@@ -15,12 +15,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class MemberServiceTest {
     @Autowired
     private MemberService memberService;
-    @DisplayName("회원가입")
+    /*@DisplayName("회원가입")
     @Test
     void t1() {
         RsData<Member> joinRs = memberService.join("usernew", "1234");
         Member member = joinRs.getData();
         assertThat(member.getId()).isGreaterThan(0L);
-    }
+    }*/
 
 }

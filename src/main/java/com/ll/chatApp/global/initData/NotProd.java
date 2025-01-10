@@ -6,6 +6,7 @@ import com.ll.chatApp.domain.chat.chatMessage.service.ChatMessageService;
 import com.ll.chatApp.domain.chat.chatRoom.entity.ChatRoom;
 import com.ll.chatApp.domain.chat.chatRoom.service.ChatRoomService;
 import com.ll.chatApp.domain.member.member.entity.Member;
+import com.ll.chatApp.domain.member.member.repository.MemberRepository;
 import com.ll.chatApp.domain.member.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class NotProd {
     private NotProd self;
     private final MemberService memberService;
     private final ArticleService articleService;
+    private final MemberRepository memberRepository;
 
     @Bean
     public ApplicationRunner initNotProdData() {
@@ -38,9 +40,10 @@ public class NotProd {
 
     @Transactional
     public void work1() {
-        Member member1 = memberService.join("user1", "1234").getData();
-        Member member2 = memberService.join("user2", "1234").getData();
-        Member member3 = memberService.join("user3", "1234").getData();
+        //memberRepository.deleteAll(); // 기존 멤버 데이터 삭제
+        Member member1 = memberService.join("user1", "1234");
+        Member member2 = memberService.join("user2", "1234");
+        Member member3 = memberService.join("user3", "1234");
 
         Article article1 = articleService.write("제목1", "내용1");
         Article article2 = articleService.write("제목2", "내용2");
