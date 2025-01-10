@@ -47,8 +47,17 @@ public class ApiV1MemberController {
         return new RsData<>("200", "로그인에 성공하였습니다.");
     }
     @GetMapping("/logout")
-    public void logout(){
-        System.out.println("logout");
+    public RsData<Void> logout(HttpServletResponse response) {
+        // 응답 데이터에 accessToken 이름으로 토큰을 발급
+        Cookie cookie = new Cookie("accessToken", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        Cookie refreshTokenCookie  = new Cookie("refreshToken", null);
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setMaxAge(0);
+        response.addCookie(refreshTokenCookie);
+        return new RsData<>("200", "로그아웃에 성공하였습니다.");
     }
     @GetMapping("/me")
     public RsData<MemberDto> me(HttpServletRequest request) {
