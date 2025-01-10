@@ -1,5 +1,7 @@
 package com.ll.chatApp.global.rsData;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +12,24 @@ import lombok.Getter;
 
 import static lombok.AccessLevel.PROTECTED;
 
-@AllArgsConstructor(access = PROTECTED)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
+@Getter
+public class RsData<T> {
+    private String resultCode;
+    private String msg;
+    private T data;
+
+    public RsData(String resultCode, String msg) {
+        this(resultCode, msg, null);
+    }
+
+    @JsonIgnore
+    public int getStatusCode() {
+        return Integer.parseInt(resultCode.split("-")[0]);
+    }
+}
+/*@AllArgsConstructor(access = PROTECTED)
 @Getter
 public class RsData<T> {
     private final String resultCode;
@@ -31,4 +50,4 @@ public class RsData<T> {
     public boolean isFail() {
         return !isSuccess();
     }
-}
+}*/
