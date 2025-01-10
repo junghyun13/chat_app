@@ -2,7 +2,7 @@ package com.ll.chatApp.domain.article.article.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 @Data
-public class ArticleWriteRequest {
+public class ArticleModifyRequest {
     @NotBlank
     private String title;
     @NotBlank
